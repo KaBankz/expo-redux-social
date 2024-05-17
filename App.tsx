@@ -1,7 +1,7 @@
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import Post from './components/Post';
-import { store } from './state/store';
+import { RootState, store } from './state/store';
 
 export default function Wrapper() {
   return (
@@ -12,16 +12,16 @@ export default function Wrapper() {
 }
 
 function App() {
-  const data = Array.from({ length: 10 });
+  const comment = useSelector((state: RootState) => state.comments);
 
   return (
     <SafeAreaView>
       <View style={styles.body}>
         <Text style={styles.title}>Feed</Text>
         <FlatList
-          data={data}
-          renderItem={({ item }) => <Post />}
-          keyExtractor={(item, index) => index.toString()}
+          data={comment}
+          renderItem={({ item }) => <Post id={item.id} />}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </SafeAreaView>

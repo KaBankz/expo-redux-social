@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../state/store';
 
-export default function Post() {
+export default function Post(props: { id: number }) {
+  const post = useSelector((state: RootState) =>
+    state.comments.find((c) => c.id === props.id)
+  );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.postTitle}>Post Title</Text>
-      <Text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos,
-        reprehenderit!
-      </Text>
+      <Text style={styles.postTitle}>{post.title}</Text>
+      <Text>{post.body}</Text>
     </View>
   );
 }
