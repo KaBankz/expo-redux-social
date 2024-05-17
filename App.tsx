@@ -1,7 +1,16 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { Provider, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import Post from './components/Post';
-import { RootState, store } from './state/store';
+import { fetchPosts } from './state/posts/postSlice';
+import { AppDispatch, RootState, store } from './state/store';
 
 export default function Wrapper() {
   return (
@@ -12,17 +21,28 @@ export default function Wrapper() {
 }
 
 function App() {
-  const posts = useSelector((state: RootState) => state.posts);
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, error, loading } = useSelector(
+    (state: RootState) => state.posts
+  );
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   return (
     <SafeAreaView>
       <View style={styles.body}>
         <Text style={styles.title}>Feed</Text>
-        <FlatList
-          data={posts}
-          renderItem={({ item }) => <Post id={item.id} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
+        {loading && <ActivityIndicator size='large' />}
+        {error && <Text style={{ color: 'red' }}>{error}</Text>}
+        {!loading && !error && (
+          <FlatList
+            data={data}
+            renderItem={({ item }) => <Post id={item.id} />}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

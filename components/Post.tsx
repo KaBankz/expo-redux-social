@@ -4,7 +4,7 @@ import { RootState } from '../state/store';
 
 export default function Post(props: { id: number }) {
   const post = useSelector((state: RootState) =>
-    state.posts.find((c) => c.id === props.id)
+    state.posts.data.find((c) => c.id === props.id)
   );
 
   return (
