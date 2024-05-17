@@ -12,14 +12,14 @@ export default function Wrapper() {
 }
 
 function App() {
-  const comment = useSelector((state: RootState) => state.comments);
+  const posts = useSelector((state: RootState) => state.posts);
 
   return (
     <SafeAreaView>
       <View style={styles.body}>
         <Text style={styles.title}>Feed</Text>
         <FlatList
-          data={comment}
+          data={posts}
           renderItem={({ item }) => <Post id={item.id} />}
           keyExtractor={(item) => item.id.toString()}
         />

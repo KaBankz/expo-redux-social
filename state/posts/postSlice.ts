@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface Comment {
+interface Post {
   userId: number;
   id: number;
   title: string;
   body: string;
 }
 
-const initialState: Comment[] = [];
+const initialState: Post[] = [];
 
-export const commentSlice = createSlice({
-  name: 'comment',
+export const postSlice = createSlice({
+  name: 'post',
   initialState,
   reducers: {},
 });
 
-export default commentSlice.reducer;
+export default postSlice.reducer;
