@@ -1,7 +1,17 @@
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
 import Post from './components/Post';
+import { store } from './state/store';
 
-export default function App() {
+export default function Wrapper() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
+
+function App() {
   const data = Array.from({ length: 10 });
 
   return (
