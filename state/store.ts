@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import commentReducer from './comments/commentSlice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    comments: commentReducer,
+  },
 });
 
 // Typescript types
