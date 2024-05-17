@@ -38,6 +38,8 @@ function App() {
         {error && <Text style={{ color: 'red' }}>{error}</Text>}
         {!loading && !error && (
           <FlatList
+            onRefresh={() => dispatch(fetchPosts())}
+            refreshing={loading}
             data={data}
             renderItem={({ item }) => <Post id={item.id} />}
             keyExtractor={(item) => item.id.toString()}
